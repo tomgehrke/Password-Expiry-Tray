@@ -22,7 +22,7 @@ namespace PET
             this.Hide();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -35,7 +35,7 @@ namespace PET
             }
         }
 
-        private void mainNotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void MainNotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
