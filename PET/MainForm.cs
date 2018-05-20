@@ -14,26 +14,73 @@ namespace PET
 {
     public partial class MainForm : Form
     {
-        private ActiveDirectoryUser user = new ActiveDirectoryUser();
+        private ActiveDirectoryUser activeDirectoryUser = new ActiveDirectoryUser();
+        private WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
+        private Priority currentPriority = Priority.None;
+
+        private enum Priority
+        {
+            Unknown, None, Low, Medium, High
+        }
 
         public MainForm()
         {
             InitializeComponent();
-            WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
             string[] userNameParts = currentIdentity.Name.Split('\\');
-            user.Domain = userNameParts[0];
-            user.UserName = userNameParts[1];
-            user.Update();
+            activeDirectoryUser.Domain = userNameParts[0];
+            activeDirectoryUser.UserName = userNameParts[1];
+            RefreshForm();
+            MessageBox.Show(activeDirectoryUser.ToString());
+        }
 
-            userNameValueLabel.Text = String.Format("{0}\\{1}", user.Domain, user.UserName);
-            fullNameValueLabel.Text = user.FullName;
-            passwordExpiresValueLabel.Text = String.Format("{0:D}", user.PasswordExpirationDate);
-            if (user.PasswordRequired)
+        private void RefreshForm()
+        {
+            activeDirectoryUser.Update();
+
+            userNameValueLabel.Text = String.Format("{0}", currentIdentity.Name);
+            fullNameValueLabel.Text = activeDirectoryUser.FullName;
+            passwordExpiresValueLabel.Text = String.Format("{0}", activeDirectoryUser.PasswordExpirationDate);
+
+            StringBuilder messageStringBuilder = new StringBuilder();
+
+            if (activeDirectoryUser.FirstName != "")
             {
-                messageLabel.Text = String.Format("{0}, your password was last changed on {1:d} at {1:t}. You have {2} days to change your password.", user.FirstName, user.PasswordLastChangedDate, (user.PasswordExpirationDate - DateTime.Now).Days);
-            } else
+                messageStringBuilder.AppendFormat("{0}, y", activeDirectoryUser.FirstName);
+            }
+            else
             {
-                messageLabel.Text = String.Format("Password not required.");
+                messageStringBuilder.Append("Y");
+            }
+
+            messageStringBuilder.AppendFormat("ou are logged in with a {0} account. ", activeDirectoryUser.Context);
+
+            if (activeDirectoryUser.PasswordRequired)
+            {
+                currentPriority = Priority.Low;
+                messageStringBuilder.AppendFormat("Your password was last changed on {0:d} at {0:t}. You have {1} days until you will need to change it. ", activeDirectoryUser.PasswordLastChangedDate, (activeDirectoryUser.PasswordExpirationDate - DateTime.Now).Days);
+            }
+            else
+            {
+                currentPriority = Priority.None;
+                messageStringBuilder.Append("You do not required a password.");
+            }
+
+            messageLabel.Text = messageStringBuilder.ToString();
+
+            switch (currentPriority)
+            {
+                case Priority.Low:
+                    alertPanel.BackColor = Color.Green;
+                    break;
+                case Priority.Medium:
+                    alertPanel.BackColor = Color.Yellow;
+                    break;
+                case Priority.High:
+                    alertPanel.BackColor = Color.Red;
+                    break;
+                default:
+                    alertPanel.BackColor = Color.Gray;
+                    break;
             }
         }
 
@@ -49,7 +96,7 @@ namespace PET
 
         private void MainForm_Move(object sender, EventArgs e)
         {
-            if (this.WindowState==FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 this.Hide();
             }

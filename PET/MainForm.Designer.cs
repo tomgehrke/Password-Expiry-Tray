@@ -41,10 +41,10 @@
             this.userNameValueLabel = new System.Windows.Forms.Label();
             this.passwordExpiresValueLabel = new System.Windows.Forms.Label();
             this.fullNameValueLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.alertPanel = new System.Windows.Forms.Panel();
             this.messageLabel = new System.Windows.Forms.Label();
             this.MainContextMenuStrip.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.alertPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainContextMenuStrip
@@ -57,34 +57,35 @@
             this.toolStripSeparator2,
             this.ExitToolStripMenuItem});
             this.MainContextMenuStrip.Name = "contextMenuStrip1";
-            this.MainContextMenuStrip.Size = new System.Drawing.Size(182, 106);
+            this.MainContextMenuStrip.ShowImageMargin = false;
+            this.MainContextMenuStrip.Size = new System.Drawing.Size(157, 106);
             // 
             // updateNowToolStripMenuItem
             // 
             this.updateNowToolStripMenuItem.Name = "updateNowToolStripMenuItem";
-            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(181, 30);
+            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.updateNowToolStripMenuItem.Text = "Update now";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(181, 30);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.settingsToolStripMenuItem.Text = "Settings...";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(181, 30);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -138,21 +139,21 @@
             this.fullNameValueLabel.TabIndex = 8;
             this.fullNameValueLabel.Text = "John Q Public";
             // 
-            // panel1
+            // alertPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Green;
-            this.panel1.Controls.Add(this.passwordExpiresValueLabel);
-            this.panel1.Controls.Add(this.passwordExpiresLabel);
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(699, 104);
-            this.panel1.TabIndex = 9;
+            this.alertPanel.BackColor = System.Drawing.Color.Green;
+            this.alertPanel.Controls.Add(this.passwordExpiresValueLabel);
+            this.alertPanel.Controls.Add(this.passwordExpiresLabel);
+            this.alertPanel.Location = new System.Drawing.Point(2, 2);
+            this.alertPanel.Name = "alertPanel";
+            this.alertPanel.Size = new System.Drawing.Size(699, 104);
+            this.alertPanel.TabIndex = 9;
             // 
             // messageLabel
             // 
-            this.messageLabel.Location = new System.Drawing.Point(52, 207);
+            this.messageLabel.Location = new System.Drawing.Point(44, 207);
             this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(597, 95);
+            this.messageLabel.Size = new System.Drawing.Size(605, 95);
             this.messageLabel.TabIndex = 10;
             this.messageLabel.Text = "This is some message text.";
             // 
@@ -163,7 +164,7 @@
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(704, 334);
             this.Controls.Add(this.messageLabel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.alertPanel);
             this.Controls.Add(this.fullNameValueLabel);
             this.Controls.Add(this.userNameValueLabel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -178,7 +179,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Move += new System.EventHandler(this.MainForm_Move);
             this.MainContextMenuStrip.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.alertPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,7 +198,7 @@
         private System.Windows.Forms.Label userNameValueLabel;
         private System.Windows.Forms.Label passwordExpiresValueLabel;
         private System.Windows.Forms.Label fullNameValueLabel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel alertPanel;
         private System.Windows.Forms.Label messageLabel;
     }
 }
