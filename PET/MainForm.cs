@@ -26,8 +26,15 @@ namespace PET
             user.Update();
 
             userNameValueLabel.Text = String.Format("{0}\\{1}", user.Domain, user.UserName);
+            fullNameValueLabel.Text = user.FullName;
             passwordExpiresValueLabel.Text = String.Format("{0:D}", user.PasswordExpirationDate);
-            passwordLastChangedValueLabel.Text = String.Format("{0:D}", user.PasswordLastChangedDate);
+            if (user.PasswordRequired)
+            {
+                messageLabel.Text = String.Format("{0}, your password was last changed on {1:d} at {1:t}. You have {2} days to change your password.", user.FirstName, user.PasswordLastChangedDate, (user.PasswordExpirationDate - DateTime.Now).Days);
+            } else
+            {
+                messageLabel.Text = String.Format("Password not required.");
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)

@@ -15,9 +15,11 @@ namespace ActiveDirectoryUtilityLibrary
         public string Domain { get; set; } = "";
         public string ErrorMessage { get; private set; }
         public string Context { get; private set; }
+        public string FullName { get; private set; }
+        public string FirstName { get; private set; }
         public DateTime PasswordLastChangedDate { get; private set; }
         public DateTime PasswordExpirationDate { get; private set; }
-        public bool NonExpiringPassword { get; private set; }
+        public bool PasswordRequired { get; private set; }
         public bool UpdateSuccessful { get; private set; }
 
         public void Update()
@@ -48,7 +50,9 @@ namespace ActiveDirectoryUtilityLibrary
 
                     PasswordLastChangedDate = native.PasswordLastChanged;
                     PasswordExpirationDate = native.PasswordExpirationDate;
-                    NonExpiringPassword = native.PasswordRequired;
+                    PasswordRequired = native.PasswordRequired;
+                    FullName = native.FullName;
+                    FirstName = native.FirstName;
                 }
                 catch (Exception ex)
                 {
