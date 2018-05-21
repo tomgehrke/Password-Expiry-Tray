@@ -11,13 +11,13 @@ namespace PET
     {
         public enum SettingSources { Local, ComputerPolicy, UserPolicy }
 
-        public int TimerInterval { get; set; } = 60;
-        public int WarnThreshold { get; set; } = 14;
-        public int WarnInterval { get; set; } = 24;
-        public int AlertThreshold { get; set; } = 7;
-        public int AlertInterval { get; set; } = 4;
-        public string Action { get; set; } = "";
-        public SettingSources Source { get; set; } = SettingSources.Local;
+        public int TimerInterval { get; set; }
+        public int WarnThreshold { get; set; }
+        public int WarnInterval { get; set; }
+        public int AlertThreshold { get; set; }
+        public int AlertInterval { get; set; }
+        public string Action { get; set; }
+        public SettingSources Source { get; set; }
 
         public Settings()
         {
@@ -31,13 +31,59 @@ namespace PET
             string userSubKey = "Software\\PasswordExpiryTray";
 
             RegistryKey localMachineRegistryKey = Registry.LocalMachine;
-            RegistryKey currentUserRegistryKey = Registry.CurrentUser;
-
             RegistryKey computerPolicyRegistryKey = localMachineRegistryKey.OpenSubKey(policySubKey, false);
-            RegistryKey userPolicyRegistryKey = currentUserRegistryKey.OpenSubKey(policySubKey, false);
-            RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(userSubKey, true);
+            if (computerPolicyRegistryKey != null) // Take settings from Computer policy
+            {
+                Source = SettingSources.ComputerPolicy;
+                LoadFromRegistry(computerPolicyRegistryKey);
+                computerPolicyRegistryKey.Close();
+                localMachineRegistryKey.Close();
+            }
+            else
+            {
+                RegistryKey currentUserRegistryKey = Registry.CurrentUser;
+                RegistryKey userPolicyRegistryKey = currentUserRegistryKey.OpenSubKey(policySubKey, false);
+                if (userPolicyRegistryKey != null) // Take settings from User policy
+                {
+                    Source = SettingSources.UserPolicy;
+                    LoadFromRegistry(userPolicyRegistryKey);
+                    userPolicyRegistryKey.Close();
+                }
+                else
+                {
+                    RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(userSubKey, true);
+                    if (localUserSettings != null) // Take settings from default app location
+                    {
+                        Source = SettingSources.Local;
+                        LoadFromRegistry(localUserSettings);
+                        localUserSettings.Close();
+                    } else
+                    {
+                        LoadDefaults();
+                    }
+                }
+                currentUserRegistryKey.Close();
+            }
 
             return result;
+        }
+
+        private bool LoadFromRegistry(RegistryKey registryKey)
+        {
+            bool result = false;
+
+
+            return result;
+        }
+
+        private void LoadDefaults()
+        {
+            TimerInterval = 60;
+            WarnThreshold = 21;
+            WarnInterval = 24;
+            AlertThreshold = 7;
+            AlertInterval = 4;
+            Action = "";
         }
     }
 }
