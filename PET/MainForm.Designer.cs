@@ -58,34 +58,34 @@
             this.ExitToolStripMenuItem});
             this.MainContextMenuStrip.Name = "contextMenuStrip1";
             this.MainContextMenuStrip.ShowImageMargin = false;
-            this.MainContextMenuStrip.Size = new System.Drawing.Size(157, 106);
+            this.MainContextMenuStrip.Size = new System.Drawing.Size(235, 154);
             // 
             // updateNowToolStripMenuItem
             // 
             this.updateNowToolStripMenuItem.Name = "updateNowToolStripMenuItem";
-            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(234, 46);
             this.updateNowToolStripMenuItem.Text = "Update now";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(231, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(234, 46);
             this.settingsToolStripMenuItem.Text = "Settings...";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(231, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(234, 46);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -113,7 +113,7 @@
             this.userNameValueLabel.AutoSize = true;
             this.userNameValueLabel.Location = new System.Drawing.Point(47, 161);
             this.userNameValueLabel.Name = "userNameValueLabel";
-            this.userNameValueLabel.Size = new System.Drawing.Size(188, 25);
+            this.userNameValueLabel.Size = new System.Drawing.Size(320, 39);
             this.userNameValueLabel.TabIndex = 3;
             this.userNameValueLabel.Text = "DOMAIN\\Username";
             // 
@@ -135,7 +135,7 @@
             this.fullNameValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fullNameValueLabel.Location = new System.Drawing.Point(47, 132);
             this.fullNameValueLabel.Name = "fullNameValueLabel";
-            this.fullNameValueLabel.Size = new System.Drawing.Size(176, 29);
+            this.fullNameValueLabel.Size = new System.Drawing.Size(283, 46);
             this.fullNameValueLabel.TabIndex = 8;
             this.fullNameValueLabel.Text = "John Q Public";
             // 
@@ -159,7 +159,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 38F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(704, 334);

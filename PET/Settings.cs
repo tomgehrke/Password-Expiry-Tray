@@ -20,77 +20,127 @@ namespace PET
         public string Action { get; set; }
         public SettingSource Source { get; set; }
 
+        private const string PolicySettingsSubKey = "Software\\Policies\\PasswordExpiryTray";
+        private const string LocalSettingsSubKey = "Software\\PasswordExpiryTray";
+
         public Settings()
         {
-            this.Load();
+            string errorMessage = Load();
+            if (errorMessage != "") { Console.WriteLine(errorMessage); }
         }
 
-        public void Load()
+        public string Load()
         {
-            string policySubKey = "Software\\Policies\\PasswordExpiryTray";
-            string userSubKey = "Software\\PasswordExpiryTray";
+            string errorMessage = "";
 
             RegistryKey localMachineRegistryKey = Registry.LocalMachine;
-            RegistryKey computerPolicyRegistryKey = localMachineRegistryKey.OpenSubKey(policySubKey, false);
+            RegistryKey computerPolicyRegistryKey = localMachineRegistryKey.OpenSubKey(PolicySettingsSubKey, false);
             if (computerPolicyRegistryKey != null) // Take settings from Computer policy
             {
                 Source = SettingSource.ComputerPolicy;
-                GetRegistrySettings(computerPolicyRegistryKey);
+                errorMessage = GetRegistrySettings(computerPolicyRegistryKey);
                 computerPolicyRegistryKey.Close();
                 localMachineRegistryKey.Close();
             }
             else
             {
                 RegistryKey currentUserRegistryKey = Registry.CurrentUser;
-                RegistryKey userPolicyRegistryKey = currentUserRegistryKey.OpenSubKey(policySubKey, false);
+                RegistryKey userPolicyRegistryKey = currentUserRegistryKey.OpenSubKey(PolicySettingsSubKey, false);
                 if (userPolicyRegistryKey != null) // Take settings from User policy
                 {
                     Source = SettingSource.UserPolicy;
-                    GetRegistrySettings(userPolicyRegistryKey);
+                    errorMessage = GetRegistrySettings(userPolicyRegistryKey);
                     userPolicyRegistryKey.Close();
                 }
                 else
                 {
-                    RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(userSubKey, true);
+                    RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(LocalSettingsSubKey, true);
                     if (localUserSettings != null) // Take settings from default app location
                     {
                         Source = SettingSource.Local;
-                        GetRegistrySettings(localUserSettings);
+                        errorMessage = GetRegistrySettings(localUserSettings);
                         localUserSettings.Close();
                     }
                     else
                     {
                         LoadDefaults();
+                        errorMessage = SetRegistrySettings();
                     }
-                }
+                 }
                 currentUserRegistryKey.Close();
             }
+
+            return errorMessage;
         }
 
-        private void GetRegistrySettings(RegistryKey registryKey)
+        private string GetRegistrySettings(RegistryKey registryKey)
         {
-            //TODO: read values from registry
+            string errorMessage = "";
+
+            //Read values from registry
+            TimerInterval = (int)registryKey.GetValue("TimerInterval");
+            WarnInterval = (int)registryKey.GetValue("WarnInterval");
+            WarnThreshold = (int)registryKey.GetValue("WarnThreshold");
+            AlertInterval = (int)registryKey.GetValue("AlertInterval");
+            AlertThreshold = (int)registryKey.GetValue("AlertThreshold");
+            Action = (string)registryKey.GetValue("Action");
 
             // Check & fix values just in case someone got cute with the registry
             bool fixRequired = false;
 
-            if (TimerInterval < 1) { LoadDefaults(Setting.TimerInterval); fixRequired = true; }
-            if (AlertThreshold < 1) { LoadDefaults(Setting.AlertThreshold); fixRequired = true; }
-            if (AlertInterval < 1) { LoadDefaults(Setting.AlertInterval); fixRequired = true; }
-            if (WarnThreshold < 1) { LoadDefaults(Setting.WarnThreshold); fixRequired = true; }
-            if (WarnInterval < 1) { LoadDefaults(Setting.WarnInterval); fixRequired = true; }
+            try
+            {
+                if (TimerInterval < 1) { LoadDefaults(Setting.TimerInterval); fixRequired = true; }
+                if (AlertThreshold < 1) { LoadDefaults(Setting.AlertThreshold); fixRequired = true; }
+                if (AlertInterval < 1) { LoadDefaults(Setting.AlertInterval); fixRequired = true; }
+                if (WarnThreshold < 1) { LoadDefaults(Setting.WarnThreshold); fixRequired = true; }
+                if (WarnInterval < 1) { LoadDefaults(Setting.WarnInterval); fixRequired = true; }
+            }
+            catch (Exception exception)
+            {
+                errorMessage = exception.Message;
+            }
 
             // Update the registry with fixed values
             // Note: Can only fix local settings. Values pushed by policy will need an AD administrator to address.
-            if (fixRequired && Source == SettingSource.Local)
+            if (errorMessage == "" && fixRequired && Source == SettingSource.Local)
             {
-                SetRegistrySettings();
+                errorMessage = SetRegistrySettings();
             }
+
+            return errorMessage;
         }
 
-        private void SetRegistrySettings()
+        private string SetRegistrySettings()
         {
+            string errorMessage = "";
 
+            try
+            {
+                RegistryKey currentUserSoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
+                RegistryKey petKey = currentUserSoftwareKey.OpenSubKey(LocalSettingsSubKey.Substring(11), true);
+
+                if (petKey == null) // Local settings do not exist so create the key
+                {
+                    petKey = currentUserSoftwareKey.CreateSubKey(LocalSettingsSubKey.Substring(11));
+                }
+
+                petKey.SetValue("TimerInterval", TimerInterval.ToString());
+                petKey.SetValue("WarnInterval", WarnInterval.ToString());
+                petKey.SetValue("WarnThreshold", WarnThreshold.ToString());
+                petKey.SetValue("AlertInterval", AlertInterval.ToString());
+                petKey.SetValue("AlertThreshold", AlertThreshold.ToString());
+                petKey.SetValue("Action", Action);
+
+                petKey.Close();
+                currentUserSoftwareKey.Close();
+            }
+            catch (Exception exception)
+            {
+                errorMessage = exception.Message;
+            }
+
+            return errorMessage;
         }
 
         private void LoadDefaults(Setting setting = Setting.All)

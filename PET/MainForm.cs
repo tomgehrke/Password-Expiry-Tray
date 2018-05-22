@@ -17,6 +17,7 @@ namespace PET
         private ActiveDirectoryUser activeDirectoryUser = new ActiveDirectoryUser();
         private WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
         private Priority currentPriority = Priority.None;
+        private Settings settings = new Settings();
 
         private enum Priority
         {
