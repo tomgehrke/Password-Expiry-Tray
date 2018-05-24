@@ -54,7 +54,7 @@ namespace PET
                 }
                 else
                 {
-                    RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(LocalSettingsSubKey, true);
+                    RegistryKey localUserSettings = currentUserRegistryKey.OpenSubKey(LocalSettingsSubKey, false);
                     if (localUserSettings != null) // Take settings from default app location
                     {
                         Source = SettingSource.Local;
@@ -117,13 +117,8 @@ namespace PET
 
             try
             {
-                RegistryKey currentUserSoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-                RegistryKey petKey = currentUserSoftwareKey.OpenSubKey(LocalSettingsSubKey.Substring(9), true);
-
-                if (petKey == null) // Local settings do not exist so create the key
-                {
-                    petKey = currentUserSoftwareKey.CreateSubKey(LocalSettingsSubKey.Substring(9));
-                }
+                RegistryKey currentUserKey = Registry.CurrentUser;
+                RegistryKey petKey = currentUserKey.CreateSubKey(LocalSettingsSubKey);
 
                 petKey.SetValue("TimerInterval", TimerInterval.ToString());
                 petKey.SetValue("WarnInterval", WarnInterval.ToString());
@@ -133,7 +128,7 @@ namespace PET
                 petKey.SetValue("Action", Action);
 
                 petKey.Close();
-                currentUserSoftwareKey.Close();
+                currentUserKey.Close();
             }
             catch (Exception exception)
             {
