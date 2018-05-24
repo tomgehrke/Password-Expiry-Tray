@@ -31,7 +31,7 @@ namespace PET
             activeDirectoryUser.Domain = userNameParts[0];
             activeDirectoryUser.UserName = userNameParts[1];
             RefreshForm();
-            MessageBox.Show(activeDirectoryUser.ToString());
+            //MessageBox.Show(activeDirectoryUser.ToString());
         }
 
         private void RefreshForm()
@@ -115,5 +115,14 @@ namespace PET
                 this.Hide();
             }
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form settingsForm = new SettingsForm();
+            MainContextMenuStrip.Enabled = false;
+            settingsForm.ShowDialog();
+            MainContextMenuStrip.Enabled = true;
+        }
+
     }
 }

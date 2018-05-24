@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PET
 {
-    class Settings
+    public class Settings
     {
         public enum SettingSource { Local = 0, UserPolicy, ComputerPolicy }
         public enum Setting { All = 0, Action, AlertInterval, AlertThreshold, TimerInterval, WarnInterval, WarnThreshold }
@@ -26,19 +26,19 @@ namespace PET
 
         public Settings()
         {
-            ErrorMessage = Load();
+            Load();
         }
 
-        public string Load()
+        public void Load()
         {
-            string errorMessage = "";
+            ClearErrorMessage();
 
             RegistryKey localMachineRegistryKey = Registry.LocalMachine;
             RegistryKey computerPolicyRegistryKey = localMachineRegistryKey.OpenSubKey(PolicySettingsSubKey, false);
             if (computerPolicyRegistryKey != null) // Take settings from Computer policy
             {
                 Source = SettingSource.ComputerPolicy;
-                errorMessage = GetRegistrySettings(computerPolicyRegistryKey);
+                GetRegistrySettings(computerPolicyRegistryKey);
                 computerPolicyRegistryKey.Close();
                 localMachineRegistryKey.Close();
             }
@@ -49,7 +49,7 @@ namespace PET
                 if (userPolicyRegistryKey != null) // Take settings from User policy
                 {
                     Source = SettingSource.UserPolicy;
-                    errorMessage = GetRegistrySettings(userPolicyRegistryKey);
+                    GetRegistrySettings(userPolicyRegistryKey);
                     userPolicyRegistryKey.Close();
                 }
                 else
@@ -58,38 +58,52 @@ namespace PET
                     if (localUserSettings != null) // Take settings from default app location
                     {
                         Source = SettingSource.Local;
-                        errorMessage = GetRegistrySettings(localUserSettings);
+                        GetRegistrySettings(localUserSettings);
                         localUserSettings.Close();
                     }
                     else
                     {
                         LoadDefaults();
-                        errorMessage = SetRegistrySettings();
+                        ClearErrorMessage();
+                        SetRegistrySettings();
                     }
-                 }
+                }
                 currentUserRegistryKey.Close();
             }
-
-            return errorMessage;
         }
 
-        private string GetRegistrySettings(RegistryKey registryKey)
+        internal void ClearErrorMessage()
         {
-            string errorMessage = "";
+            ErrorMessage = "";
+        }
 
-            //Read values from registry
-            TimerInterval = Convert.ToInt16(registryKey.GetValue("TimerInterval"));
-            WarnInterval = Convert.ToInt16(registryKey.GetValue("WarnInterval"));
-            WarnThreshold = Convert.ToInt16(registryKey.GetValue("WarnThreshold"));
-            AlertInterval = Convert.ToInt16(registryKey.GetValue("AlertInterval"));
-            AlertThreshold = Convert.ToInt16(registryKey.GetValue("AlertThreshold"));
-            Action = Convert.ToString(registryKey.GetValue("Action"));
+        public void Save()
+        {
+            if (Source == SettingSource.Local)
+            {
+                SetRegistrySettings();
+            }
+            else
+            {
+                ErrorMessage = "Settings are set by policy and cannot be changed by the user.";
+            }
+        }
 
-            // Check & fix values just in case someone got cute with the registry
+        private void GetRegistrySettings(RegistryKey registryKey)
+        {
             bool fixRequired = false;
 
             try
             {
+                //Read values from registry
+                TimerInterval = Convert.ToInt16(registryKey.GetValue("TimerInterval"));
+                WarnInterval = Convert.ToInt16(registryKey.GetValue("WarnInterval"));
+                WarnThreshold = Convert.ToInt16(registryKey.GetValue("WarnThreshold"));
+                AlertInterval = Convert.ToInt16(registryKey.GetValue("AlertInterval"));
+                AlertThreshold = Convert.ToInt16(registryKey.GetValue("AlertThreshold"));
+                Action = Convert.ToString(registryKey.GetValue("Action"));
+
+                // Check & fix values just in case someone got cute with the registry
                 if (TimerInterval < 1) { LoadDefaults(Setting.TimerInterval); fixRequired = true; }
                 if (AlertThreshold < 1) { LoadDefaults(Setting.AlertThreshold); fixRequired = true; }
                 if (AlertInterval < 1) { LoadDefaults(Setting.AlertInterval); fixRequired = true; }
@@ -98,23 +112,19 @@ namespace PET
             }
             catch (Exception exception)
             {
-                errorMessage = exception.Message;
+                ErrorMessage = exception.Message;
             }
 
             // Update the registry with fixed values
             // Note: Can only fix local settings. Values pushed by policy will need an AD administrator to address.
-            if (errorMessage == "" && fixRequired && Source == SettingSource.Local)
+            if (ErrorMessage == "" && fixRequired && Source == SettingSource.Local)
             {
-                errorMessage = SetRegistrySettings();
+                SetRegistrySettings();
             }
-
-            return errorMessage;
         }
 
-        private string SetRegistrySettings()
+        private void SetRegistrySettings()
         {
-            string errorMessage = "";
-
             try
             {
                 RegistryKey currentUserKey = Registry.CurrentUser;
@@ -132,10 +142,8 @@ namespace PET
             }
             catch (Exception exception)
             {
-                errorMessage = exception.Message;
+                ErrorMessage = exception.Message;
             }
-
-            return errorMessage;
         }
 
         private void LoadDefaults(Setting setting = Setting.All)
