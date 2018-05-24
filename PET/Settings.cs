@@ -19,14 +19,14 @@ namespace PET
         public int AlertInterval { get; set; }
         public string Action { get; set; }
         public SettingSource Source { get; set; }
+        public string ErrorMessage { get; private set; } = "";
 
         private const string PolicySettingsSubKey = "Software\\Policies\\PasswordExpiryTray";
         private const string LocalSettingsSubKey = "Software\\PasswordExpiryTray";
 
         public Settings()
         {
-            string errorMessage = Load();
-            if (errorMessage != "") { Console.WriteLine(errorMessage); }
+            ErrorMessage = Load();
         }
 
         public string Load()
@@ -78,12 +78,12 @@ namespace PET
             string errorMessage = "";
 
             //Read values from registry
-            TimerInterval = (int)registryKey.GetValue("TimerInterval");
-            WarnInterval = (int)registryKey.GetValue("WarnInterval");
-            WarnThreshold = (int)registryKey.GetValue("WarnThreshold");
-            AlertInterval = (int)registryKey.GetValue("AlertInterval");
-            AlertThreshold = (int)registryKey.GetValue("AlertThreshold");
-            Action = (string)registryKey.GetValue("Action");
+            TimerInterval = Convert.ToInt16(registryKey.GetValue("TimerInterval"));
+            WarnInterval = Convert.ToInt16(registryKey.GetValue("WarnInterval"));
+            WarnThreshold = Convert.ToInt16(registryKey.GetValue("WarnThreshold"));
+            AlertInterval = Convert.ToInt16(registryKey.GetValue("AlertInterval"));
+            AlertThreshold = Convert.ToInt16(registryKey.GetValue("AlertThreshold"));
+            Action = Convert.ToString(registryKey.GetValue("Action"));
 
             // Check & fix values just in case someone got cute with the registry
             bool fixRequired = false;
@@ -118,11 +118,11 @@ namespace PET
             try
             {
                 RegistryKey currentUserSoftwareKey = Registry.CurrentUser.OpenSubKey("Software", true);
-                RegistryKey petKey = currentUserSoftwareKey.OpenSubKey(LocalSettingsSubKey.Substring(11), true);
+                RegistryKey petKey = currentUserSoftwareKey.OpenSubKey(LocalSettingsSubKey.Substring(9), true);
 
                 if (petKey == null) // Local settings do not exist so create the key
                 {
-                    petKey = currentUserSoftwareKey.CreateSubKey(LocalSettingsSubKey.Substring(11));
+                    petKey = currentUserSoftwareKey.CreateSubKey(LocalSettingsSubKey.Substring(9));
                 }
 
                 petKey.SetValue("TimerInterval", TimerInterval.ToString());
