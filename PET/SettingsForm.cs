@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PET
+namespace Pet
 {
     public partial class SettingsForm : Form
     {
@@ -17,13 +17,7 @@ namespace PET
         public SettingsForm()
         {
             InitializeComponent();
-
-            TimerIntervalNumericUpDown.Value = settings.TimerInterval;
-            WarnIntervalNumericUpDown.Value = settings.WarnInterval;
-            WarnThresholdNumericUpDown.Value = settings.WarnThreshold;
-            AlertIntervalNumericUpDown.Value = settings.AlertInterval;
-            AlertThresholdNumericUpDown.Value = settings.AlertThreshold;
-            ActionTextBox.Text = settings.Action;
+            RefreshFormControls();
 
             if (settings.Source != Settings.SettingSource.Local)
             {
@@ -35,10 +29,16 @@ namespace PET
             }
         }
 
-        private void CancelButton_Click(object sender, EventArgs e)                  
+        private void RefreshFormControls()
         {
-            Close();
+            TimerIntervalNumericUpDown.Value = settings.TimerInterval;
+            WarnIntervalNumericUpDown.Value = settings.WarnInterval;
+            WarnThresholdNumericUpDown.Value = settings.WarnThreshold;
+            AlertIntervalNumericUpDown.Value = settings.AlertInterval;
+            AlertThresholdNumericUpDown.Value = settings.AlertThreshold;
+            ActionTextBox.Text = settings.Action;
         }
+
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
@@ -50,7 +50,7 @@ namespace PET
             settings.Action = ActionTextBox.Text;
 
             settings.Save();
-            if (settings.ErrorMessage == "")
+            if (String.IsNullOrEmpty(settings.ErrorMessage))
             {
                 MessageBox.Show("Settings saved!");
             }
@@ -59,6 +59,17 @@ namespace PET
                 MessageBox.Show(settings.ErrorMessage);
                 settings.ClearErrorMessage();
             }
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void LoadDefaultsButton_Click(object sender, EventArgs e)
+        {
+            settings.LoadDefaults();
+            RefreshFormControls();
         }
     }
 }

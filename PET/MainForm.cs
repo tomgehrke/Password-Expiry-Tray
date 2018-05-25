@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ActiveDirectoryUtilityLibrary;
 
-namespace PET
+namespace Pet
 {
     public partial class MainForm : Form
     {
@@ -44,7 +44,7 @@ namespace PET
 
             StringBuilder messageStringBuilder = new StringBuilder();
 
-            if (activeDirectoryUser.FirstName != "")
+            if (String.IsNullOrEmpty(activeDirectoryUser.FirstName))
             {
                 messageStringBuilder.AppendFormat("{0}, y", activeDirectoryUser.FirstName);
             }
@@ -121,8 +121,13 @@ namespace PET
             Form settingsForm = new SettingsForm();
             MainContextMenuStrip.Enabled = false;
             settingsForm.ShowDialog();
+            settings.Load();
             MainContextMenuStrip.Enabled = true;
         }
 
+        private void CheckExpirationTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PET
+namespace Pet
 {
     public class Settings
     {
@@ -117,7 +117,7 @@ namespace PET
 
             // Update the registry with fixed values
             // Note: Can only fix local settings. Values pushed by policy will need an AD administrator to address.
-            if (ErrorMessage == "" && fixRequired && Source == SettingSource.Local)
+            if (String.IsNullOrEmpty(ErrorMessage) && fixRequired && Source == SettingSource.Local)
             {
                 SetRegistrySettings();
             }
@@ -146,7 +146,7 @@ namespace PET
             }
         }
 
-        private void LoadDefaults(Setting setting = Setting.All)
+        public void LoadDefaults(Setting setting = Setting.All)
         {
             if (setting == Setting.All || setting == Setting.TimerInterval) { TimerInterval = 60; }
             if (setting == Setting.All || setting == Setting.WarnInterval) { WarnInterval = 24; }

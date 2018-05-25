@@ -5,7 +5,6 @@ using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ActiveDs;
 
 namespace ActiveDirectoryUtilityLibrary
 {
@@ -57,7 +56,7 @@ namespace ActiveDirectoryUtilityLibrary
                     PasswordRequired = !userPrincipal.PasswordNotRequired;
 
                     DirectoryEntry directoryEntry = (DirectoryEntry) userPrincipal.GetUnderlyingObject();
-                    IADsUser nativeUser = (IADsUser) directoryEntry.NativeObject;
+                    ActiveDs.IADsUser nativeUser = (ActiveDs.IADsUser) directoryEntry.NativeObject;
 
                     PasswordExpirationDate = nativeUser.PasswordExpirationDate;
 

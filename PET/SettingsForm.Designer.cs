@@ -1,4 +1,4 @@
-﻿namespace PET
+﻿namespace Pet
 {
     partial class SettingsForm
     {
@@ -45,8 +45,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.ActionTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.CancelButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
+            this.LoadDefaultsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TimerIntervalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarnIntervalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarnThresholdNumericUpDown)).BeginInit();
@@ -68,7 +69,7 @@
             // TimerIntervalNumericUpDown
             // 
             this.TimerIntervalNumericUpDown.Location = new System.Drawing.Point(27, 81);
-            this.TimerIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.TimerIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
             this.TimerIntervalNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
@@ -103,7 +104,7 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "hours";
             // 
-            // WarningIntervalNumericUpDown
+            // WarnIntervalNumericUpDown
             // 
             this.WarnIntervalNumericUpDown.Location = new System.Drawing.Point(27, 218);
             this.WarnIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
@@ -112,7 +113,7 @@
             0,
             0,
             0});
-            this.WarnIntervalNumericUpDown.Name = "WarningIntervalNumericUpDown";
+            this.WarnIntervalNumericUpDown.Name = "WarnIntervalNumericUpDown";
             this.WarnIntervalNumericUpDown.Size = new System.Drawing.Size(160, 38);
             this.WarnIntervalNumericUpDown.TabIndex = 4;
             this.WarnIntervalNumericUpDown.Value = new decimal(new int[] {
@@ -142,7 +143,7 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "days";
             // 
-            // WarningThresholdNumericUpDown
+            // WarnThresholdNumericUpDown
             // 
             this.WarnThresholdNumericUpDown.Location = new System.Drawing.Point(363, 218);
             this.WarnThresholdNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
@@ -151,7 +152,7 @@
             0,
             0,
             0});
-            this.WarnThresholdNumericUpDown.Name = "WarningThresholdNumericUpDown";
+            this.WarnThresholdNumericUpDown.Name = "WarnThresholdNumericUpDown";
             this.WarnThresholdNumericUpDown.Size = new System.Drawing.Size(160, 38);
             this.WarnThresholdNumericUpDown.TabIndex = 7;
             this.WarnThresholdNumericUpDown.Value = new decimal(new int[] {
@@ -266,34 +267,44 @@
             this.label9.TabIndex = 16;
             this.label9.Text = "Change password action";
             // 
-            // CancelButton
-            // 
-            this.CancelButton.Location = new System.Drawing.Point(223, 560);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(178, 52);
-            this.CancelButton.TabIndex = 17;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            // 
             // SaveButton
             // 
             this.SaveButton.Location = new System.Drawing.Point(418, 560);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(189, 52);
+            this.SaveButton.Size = new System.Drawing.Size(190, 50);
             this.SaveButton.TabIndex = 18;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
+            // CloseButton
+            // 
+            this.CloseButton.Location = new System.Drawing.Point(203, 560);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(190, 50);
+            this.CloseButton.TabIndex = 19;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
+            // LoadDefaultsButton
+            // 
+            this.LoadDefaultsButton.Location = new System.Drawing.Point(363, 65);
+            this.LoadDefaultsButton.Name = "LoadDefaultsButton";
+            this.LoadDefaultsButton.Size = new System.Drawing.Size(236, 50);
+            this.LoadDefaultsButton.TabIndex = 20;
+            this.LoadDefaultsButton.Text = "Load Defaults";
+            this.LoadDefaultsButton.UseVisualStyleBackColor = true;
+            this.LoadDefaultsButton.Click += new System.EventHandler(this.LoadDefaultsButton_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(642, 665);
+            this.Controls.Add(this.LoadDefaultsButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.ActionTextBox);
             this.Controls.Add(this.label5);
@@ -311,11 +322,11 @@
             this.Controls.Add(this.TimerIntervalHoursLabel);
             this.Controls.Add(this.TimerIntervalNumericUpDown);
             this.Controls.Add(this.TimerIntervalLabel);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "SettingsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SettingsForm";
+            this.Text = "PET Settings";
             ((System.ComponentModel.ISupportInitialize)(this.TimerIntervalNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarnIntervalNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarnThresholdNumericUpDown)).EndInit();
@@ -345,7 +356,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox ActionTextBox;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.Button LoadDefaultsButton;
     }
 }
