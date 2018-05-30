@@ -14,7 +14,7 @@ namespace Pet
 {
     public partial class MainForm : Form
     {
-        private ActiveDirectoryUser activeDirectoryUser = new ActiveDirectoryUser();
+        private ActiveDirectoryUser currentActiveDirectoryUser = new ActiveDirectoryUser();
         private WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
         private Priority currentPriority = Priority.None;
         private Settings settings = new Settings();
@@ -28,37 +28,39 @@ namespace Pet
         {
             InitializeComponent();
             string[] userNameParts = currentIdentity.Name.Split('\\');
-            activeDirectoryUser.Domain = userNameParts[0];
-            activeDirectoryUser.UserName = userNameParts[1];
+            currentActiveDirectoryUser.Domain = userNameParts[0];
+            currentActiveDirectoryUser.UserName = userNameParts[1];
             RefreshForm();
             //MessageBox.Show(activeDirectoryUser.ToString());
         }
 
         private void RefreshForm()
         {
-            activeDirectoryUser.Update();
+            // Get current user info
+            currentActiveDirectoryUser.Update();
 
-            userNameValueLabel.Text = String.Format("{0}", currentIdentity.Name);
-            fullNameValueLabel.Text = activeDirectoryUser.FullName;
-            passwordExpiresValueLabel.Text = String.Format("{0}", activeDirectoryUser.PasswordExpirationDate);
+            // Update user info components
+            UserNameValueLabel.Text = String.Format("{0}", currentIdentity.Name);
+            FullNameValueLabel.Text = currentActiveDirectoryUser.FullName;
+            PasswordExpiresValueLabel.Text = String.Format("{0:dddd, MMMM dd, yyyy}", currentActiveDirectoryUser.PasswordExpirationDate);
 
             StringBuilder messageStringBuilder = new StringBuilder();
 
-            if (String.IsNullOrEmpty(activeDirectoryUser.FirstName))
+            if (String.IsNullOrEmpty(currentActiveDirectoryUser.FirstName))
             {
-                messageStringBuilder.AppendFormat("{0}, y", activeDirectoryUser.FirstName);
+                messageStringBuilder.AppendFormat("{0}, y", currentActiveDirectoryUser.FirstName);
             }
             else
             {
                 messageStringBuilder.Append("Y");
             }
 
-            messageStringBuilder.AppendFormat("ou are logged in with a {0} account. ", activeDirectoryUser.Context);
+            messageStringBuilder.AppendFormat("ou are logged in with a {0} account. ", currentActiveDirectoryUser.Context);
 
-            if (activeDirectoryUser.PasswordRequired)
+            if (currentActiveDirectoryUser.PasswordRequired)
             {
                 currentPriority = Priority.Low;
-                messageStringBuilder.AppendFormat("Your password was last changed on {0:d} at {0:t}. You have {1} days until you will need to change it. ", activeDirectoryUser.PasswordLastChangedDate, (activeDirectoryUser.PasswordExpirationDate - DateTime.Now).Days);
+                messageStringBuilder.AppendFormat("Your password was last changed on {0:d} at {0:t}. You have {1} days until you will need to change it. ", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - DateTime.Now).Days);
             }
             else
             {
@@ -82,6 +84,18 @@ namespace Pet
                 default:
                     alertPanel.BackColor = Color.Gray;
                     break;
+            }
+
+            // Update settings related components
+            ChangePasswordButton.Visible = !(String.IsNullOrEmpty(settings.Action));
+
+            if (ChangePasswordButton.Visible)
+            {
+                this.Height = 420;
+            }
+            else
+            {
+                this.Height = 320;
             }
         }
 
@@ -113,6 +127,7 @@ namespace Pet
             else
             {
                 this.Hide();
+                this.WindowState = FormWindowState.Minimized;
             }
         }
 

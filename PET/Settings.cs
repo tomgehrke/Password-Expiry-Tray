@@ -110,9 +110,9 @@ namespace Pet
                 if (WarnThreshold < 1) { LoadDefaults(Setting.WarnThreshold); fixRequired = true; }
                 if (WarnInterval < 1) { LoadDefaults(Setting.WarnInterval); fixRequired = true; }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                ErrorMessage = exception.Message;
+                throw;
             }
 
             // Update the registry with fixed values
@@ -140,13 +140,18 @@ namespace Pet
                 petKey.Close();
                 currentUserKey.Close();
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                ErrorMessage = exception.Message;
+                throw;
             }
         }
 
-        public void LoadDefaults(Setting setting = Setting.All)
+        public void LoadDefaults()
+        {
+            LoadDefaults(Setting.All);
+        }
+
+        public void LoadDefaults(Setting setting)
         {
             if (setting == Setting.All || setting == Setting.TimerInterval) { TimerInterval = 60; }
             if (setting == Setting.All || setting == Setting.WarnInterval) { WarnInterval = 24; }
