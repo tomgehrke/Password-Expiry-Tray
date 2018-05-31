@@ -46,7 +46,7 @@ namespace Pet
 
             StringBuilder messageStringBuilder = new StringBuilder();
 
-            if (String.IsNullOrEmpty(currentActiveDirectoryUser.FirstName))
+            if (!String.IsNullOrEmpty(currentActiveDirectoryUser.FirstName))
             {
                 messageStringBuilder.AppendFormat("{0}, y", currentActiveDirectoryUser.FirstName);
             }
