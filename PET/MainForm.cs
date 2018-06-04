@@ -14,11 +14,18 @@ namespace Pet
 {
     public partial class MainForm : Form
     {
-        private ActiveDirectoryUser currentActiveDirectoryUser = new ActiveDirectoryUser();
-        private WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
-        private Priority currentPriority = Priority.None;
+        // Application settings object
         private Settings settings = new Settings();
 
+        // Identity objects
+        private ActiveDirectoryUser currentActiveDirectoryUser = new ActiveDirectoryUser();
+        private WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
+
+        // Current alert states
+        private DateTime LastChecked;
+        private Priority currentPriority = Priority.Unknown;
+
+        // Alert priorities
         private enum Priority
         {
             Unknown, None, Low, Medium, High
@@ -30,59 +37,61 @@ namespace Pet
             string[] userNameParts = currentIdentity.Name.Split('\\');
             currentActiveDirectoryUser.Domain = userNameParts[0];
             currentActiveDirectoryUser.UserName = userNameParts[1];
-            RefreshForm();
-            //MessageBox.Show(activeDirectoryUser.ToString());
+            UpdateForm();
         }
 
-        private void RefreshForm()
+        private void RefreshSettings()
+        {
+            settings.Load();
+            CheckExpirationTimer.Interval = settings.TimerInterval * 60000;
+        }
+
+        private void UpdateForm()
         {
             // Get current user info
             currentActiveDirectoryUser.Update();
+            LastChecked = DateTime.Now;
 
-            // Update user info components
-            UserNameValueLabel.Text = String.Format("{0}", currentIdentity.Name);
-            FullNameValueLabel.Text = currentActiveDirectoryUser.FullName;
+            // Create "report"
             PasswordExpiresValueLabel.Text = String.Format("{0:dddd, MMMM dd, yyyy}", currentActiveDirectoryUser.PasswordExpirationDate);
 
-            StringBuilder messageStringBuilder = new StringBuilder();
+            StringBuilder messageStringBuilder = new StringBuilder("<html><head></head><body>");
 
-            if (!String.IsNullOrEmpty(currentActiveDirectoryUser.FirstName))
-            {
-                messageStringBuilder.AppendFormat("{0}, y", currentActiveDirectoryUser.FirstName);
-            }
-            else
-            {
-                messageStringBuilder.Append("Y");
-            }
-
-            messageStringBuilder.AppendFormat("ou are logged in with a {0} account. ", currentActiveDirectoryUser.Context);
+            messageStringBuilder.AppendFormat("<p><b>{0}</b> ({1}), you are logged in with a <i>{2}</i> account.</p>", currentIdentity.Name, currentActiveDirectoryUser.FullName, currentActiveDirectoryUser.Context);
 
             if (currentActiveDirectoryUser.PasswordRequired)
             {
                 currentPriority = Priority.Low;
-                messageStringBuilder.AppendFormat("Your password was last changed on {0:d} at {0:t}. You have {1} days until you will need to change it. ", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - DateTime.Now).Days);
+                messageStringBuilder.AppendFormat("<p>Your password was last changed on {0:d} at {0:t}. You have <b>{1}</b> days until it will need to be changed.</p>", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - DateTime.Now).Days);
             }
             else
             {
                 currentPriority = Priority.None;
-                messageStringBuilder.Append("You do not required a password.");
+                messageStringBuilder.Append("<p>You do not required a password.</p>");
             }
 
-            messageLabel.Text = messageStringBuilder.ToString();
+            messageStringBuilder.AppendFormat("<p>Password last checked on {0:d} at {0:t}</p>", LastChecked);
+            messageStringBuilder.Append("</body></html>");
+
+            messageWebBrowser.DocumentText = messageStringBuilder.ToString();
 
             switch (currentPriority)
             {
                 case Priority.Low:
                     alertPanel.BackColor = Color.Green;
+                    alertPanel.ForeColor = Color.White;
                     break;
                 case Priority.Medium:
                     alertPanel.BackColor = Color.Yellow;
+                    alertPanel.ForeColor = Color.Black;
                     break;
                 case Priority.High:
                     alertPanel.BackColor = Color.Red;
+                    alertPanel.ForeColor = Color.LightYellow;
                     break;
                 default:
                     alertPanel.BackColor = Color.Gray;
+                    alertPanel.ForeColor = Color.White;
                     break;
             }
 
@@ -95,7 +104,7 @@ namespace Pet
             }
             else
             {
-                this.Height = 320;
+                this.Height = 360;
             }
         }
 
@@ -136,13 +145,36 @@ namespace Pet
             Form settingsForm = new SettingsForm();
             MainContextMenuStrip.Enabled = false;
             settingsForm.ShowDialog();
-            settings.Load();
             MainContextMenuStrip.Enabled = true;
+            RefreshSettings();
+            UpdateForm();
         }
 
         private void CheckExpirationTimer_Tick(object sender, EventArgs e)
         {
+            UpdateForm();
+        }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
+        private void ChangePasswordButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(settings.Action);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "PET Error!");
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.ApplicationExitCall)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
         }
     }
 }

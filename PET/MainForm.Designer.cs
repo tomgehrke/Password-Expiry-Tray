@@ -38,13 +38,11 @@
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.passwordExpiresLabel = new System.Windows.Forms.Label();
-            this.UserNameValueLabel = new System.Windows.Forms.Label();
             this.PasswordExpiresValueLabel = new System.Windows.Forms.Label();
-            this.FullNameValueLabel = new System.Windows.Forms.Label();
             this.alertPanel = new System.Windows.Forms.Panel();
-            this.messageLabel = new System.Windows.Forms.Label();
             this.CheckExpirationTimer = new System.Windows.Forms.Timer(this.components);
             this.ChangePasswordButton = new System.Windows.Forms.Button();
+            this.messageWebBrowser = new System.Windows.Forms.WebBrowser();
             this.MainContextMenuStrip.SuspendLayout();
             this.alertPanel.SuspendLayout();
             this.SuspendLayout();
@@ -111,16 +109,6 @@
             this.passwordExpiresLabel.Text = "Password Expires";
             this.passwordExpiresLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // UserNameValueLabel
-            // 
-            this.UserNameValueLabel.AutoSize = true;
-            this.UserNameValueLabel.Location = new System.Drawing.Point(17, 154);
-            this.UserNameValueLabel.Name = "UserNameValueLabel";
-            this.UserNameValueLabel.Size = new System.Drawing.Size(188, 25);
-            this.UserNameValueLabel.TabIndex = 3;
-            this.UserNameValueLabel.Text = "DOMAIN\\Username";
-            this.UserNameValueLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // PasswordExpiresValueLabel
             // 
             this.PasswordExpiresValueLabel.BackColor = System.Drawing.Color.Transparent;
@@ -133,16 +121,6 @@
             this.PasswordExpiresValueLabel.Text = "January 1, 1970";
             this.PasswordExpiresValueLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // FullNameValueLabel
-            // 
-            this.FullNameValueLabel.AutoSize = true;
-            this.FullNameValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FullNameValueLabel.Location = new System.Drawing.Point(17, 125);
-            this.FullNameValueLabel.Name = "FullNameValueLabel";
-            this.FullNameValueLabel.Size = new System.Drawing.Size(176, 29);
-            this.FullNameValueLabel.TabIndex = 8;
-            this.FullNameValueLabel.Text = "John Q Public";
-            // 
             // alertPanel
             // 
             this.alertPanel.BackColor = System.Drawing.Color.Green;
@@ -150,16 +128,8 @@
             this.alertPanel.Controls.Add(this.passwordExpiresLabel);
             this.alertPanel.Location = new System.Drawing.Point(2, 2);
             this.alertPanel.Name = "alertPanel";
-            this.alertPanel.Size = new System.Drawing.Size(600, 110);
+            this.alertPanel.Size = new System.Drawing.Size(600, 104);
             this.alertPanel.TabIndex = 9;
-            // 
-            // messageLabel
-            // 
-            this.messageLabel.Location = new System.Drawing.Point(22, 197);
-            this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(570, 100);
-            this.messageLabel.TabIndex = 10;
-            this.messageLabel.Text = "This is some message text.";
             // 
             // CheckExpirationTimer
             // 
@@ -167,12 +137,26 @@
             // 
             // ChangePasswordButton
             // 
-            this.ChangePasswordButton.Location = new System.Drawing.Point(12, 312);
+            this.ChangePasswordButton.Location = new System.Drawing.Point(22, 321);
             this.ChangePasswordButton.Name = "ChangePasswordButton";
-            this.ChangePasswordButton.Size = new System.Drawing.Size(580, 50);
+            this.ChangePasswordButton.Size = new System.Drawing.Size(549, 41);
             this.ChangePasswordButton.TabIndex = 11;
             this.ChangePasswordButton.Text = "Change Password";
             this.ChangePasswordButton.UseVisualStyleBackColor = true;
+            this.ChangePasswordButton.Click += new System.EventHandler(this.ChangePasswordButton_Click);
+            // 
+            // messageWebBrowser
+            // 
+            this.messageWebBrowser.AllowNavigation = false;
+            this.messageWebBrowser.AllowWebBrowserDrop = false;
+            this.messageWebBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.messageWebBrowser.Location = new System.Drawing.Point(5, 105);
+            this.messageWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.messageWebBrowser.Name = "messageWebBrowser";
+            this.messageWebBrowser.ScrollBarsEnabled = false;
+            this.messageWebBrowser.Size = new System.Drawing.Size(594, 201);
+            this.messageWebBrowser.TabIndex = 12;
+            this.messageWebBrowser.WebBrowserShortcutsEnabled = false;
             // 
             // MainForm
             // 
@@ -180,14 +164,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(608, 374);
-            this.ControlBox = false;
             this.Controls.Add(this.ChangePasswordButton);
-            this.Controls.Add(this.messageLabel);
             this.Controls.Add(this.alertPanel);
-            this.Controls.Add(this.FullNameValueLabel);
-            this.Controls.Add(this.UserNameValueLabel);
+            this.Controls.Add(this.messageWebBrowser);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
@@ -195,12 +176,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password Expiry Tray";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Move += new System.EventHandler(this.MainForm_Move);
             this.MainContextMenuStrip.ResumeLayout(false);
             this.alertPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -214,13 +195,11 @@
         private System.Windows.Forms.ToolStripMenuItem updateNowToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Label passwordExpiresLabel;
-        private System.Windows.Forms.Label UserNameValueLabel;
         private System.Windows.Forms.Label PasswordExpiresValueLabel;
-        private System.Windows.Forms.Label FullNameValueLabel;
         private System.Windows.Forms.Panel alertPanel;
-        private System.Windows.Forms.Label messageLabel;
         private System.Windows.Forms.Timer CheckExpirationTimer;
         private System.Windows.Forms.Button ChangePasswordButton;
+        private System.Windows.Forms.WebBrowser messageWebBrowser;
     }
 }
 
