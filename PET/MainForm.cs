@@ -38,25 +38,19 @@ namespace Pet
             currentActiveDirectoryUser.Domain = userNameParts[0];
             currentActiveDirectoryUser.UserName = userNameParts[1];
 
-            ApplySettings();
-            UpdateForm();
-
             // Kick off the timer
             CheckExpirationTimer.Enabled = true;
             CheckExpirationTimer.Start();
         }
 
-        private void ApplySettings()
+        private void RefreshSettings()
         {
             settings.Load();
             CheckExpirationTimer.Interval = settings.TimerInterval * 60000;
         }
 
-        private void UpdateForm()
+        private void RefreshForm()
         {
-
-            // Reset status area
-            messageWebBrowser.Navigate("about:blank");
 
             // Get current user info
             currentActiveDirectoryUser.Update();
@@ -83,7 +77,11 @@ namespace Pet
             messageStringBuilder.AppendFormat("<p>Password last checked on {0:d} at {0:t}</p>", LastChecked);
             messageStringBuilder.Append("</body></html>");
 
-            messageWebBrowser.DocumentText = messageStringBuilder.ToString();
+            // Update status area (web browser)
+            messageWebBrowser.Navigate("about:blank");
+            messageWebBrowser.Document.OpenNew(false);
+            messageWebBrowser.Document.Write(messageStringBuilder.ToString());
+            messageWebBrowser.Refresh();
 
             switch (currentPriority)
             {
@@ -106,7 +104,7 @@ namespace Pet
             }
 
             // Update settings related components
-            ChangePasswordButton.Visible = !(String.IsNullOrEmpty(settings.Action));
+            ChangePasswordButton.Visible = !String.IsNullOrEmpty(settings.Action);
 
             if (ChangePasswordButton.Visible)
             {
@@ -120,6 +118,9 @@ namespace Pet
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            RefreshSettings();
+            RefreshForm();
+
             this.Hide();
         }
 
@@ -156,13 +157,13 @@ namespace Pet
             MainContextMenuStrip.Enabled = false;
             settingsForm.ShowDialog();
             MainContextMenuStrip.Enabled = true;
-            ApplySettings();
-            UpdateForm();
+            RefreshSettings();
+            RefreshForm();
         }
 
         private void CheckExpirationTimer_Tick(object sender, EventArgs e)
         {
-            UpdateForm();
+            RefreshForm();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -189,7 +190,7 @@ namespace Pet
 
         private void updateNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UpdateForm();
+            RefreshForm();
         }
     }
 }
