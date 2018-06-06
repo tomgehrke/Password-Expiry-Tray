@@ -63,30 +63,31 @@
             // updateNowToolStripMenuItem
             // 
             this.updateNowToolStripMenuItem.Name = "updateNowToolStripMenuItem";
-            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.updateNowToolStripMenuItem.Size = new System.Drawing.Size(215, 30);
             this.updateNowToolStripMenuItem.Text = "Update now";
+            this.updateNowToolStripMenuItem.Click += new System.EventHandler(this.updateNowToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(212, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(215, 30);
             this.settingsToolStripMenuItem.Text = "Settings...";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(212, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(156, 30);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(215, 30);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -147,7 +148,6 @@
             // 
             // messageWebBrowser
             // 
-            this.messageWebBrowser.AllowNavigation = false;
             this.messageWebBrowser.AllowWebBrowserDrop = false;
             this.messageWebBrowser.IsWebBrowserContextMenuEnabled = false;
             this.messageWebBrowser.Location = new System.Drawing.Point(5, 105);

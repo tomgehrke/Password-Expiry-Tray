@@ -37,10 +37,16 @@ namespace Pet
             string[] userNameParts = currentIdentity.Name.Split('\\');
             currentActiveDirectoryUser.Domain = userNameParts[0];
             currentActiveDirectoryUser.UserName = userNameParts[1];
+
+            ApplySettings();
             UpdateForm();
+
+            // Kick off the timer
+            CheckExpirationTimer.Enabled = true;
+            CheckExpirationTimer.Start();
         }
 
-        private void RefreshSettings()
+        private void ApplySettings()
         {
             settings.Load();
             CheckExpirationTimer.Interval = settings.TimerInterval * 60000;
@@ -48,6 +54,10 @@ namespace Pet
 
         private void UpdateForm()
         {
+
+            // Reset status area
+            messageWebBrowser.Navigate("about:blank");
+
             // Get current user info
             currentActiveDirectoryUser.Update();
             LastChecked = DateTime.Now;
@@ -146,7 +156,7 @@ namespace Pet
             MainContextMenuStrip.Enabled = false;
             settingsForm.ShowDialog();
             MainContextMenuStrip.Enabled = true;
-            RefreshSettings();
+            ApplySettings();
             UpdateForm();
         }
 
@@ -175,6 +185,11 @@ namespace Pet
                 e.Cancel = true;
                 this.Hide();
             }
+        }
+
+        private void updateNowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
     }
 }
