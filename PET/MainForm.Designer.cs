@@ -102,22 +102,25 @@
             // passwordExpiresLabel
             // 
             this.passwordExpiresLabel.BackColor = System.Drawing.Color.Transparent;
+            this.passwordExpiresLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordExpiresLabel.ForeColor = System.Drawing.Color.Gainsboro;
-            this.passwordExpiresLabel.Location = new System.Drawing.Point(15, 11);
+            this.passwordExpiresLabel.Location = new System.Drawing.Point(7, 9);
+            this.passwordExpiresLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.passwordExpiresLabel.Name = "passwordExpiresLabel";
-            this.passwordExpiresLabel.Size = new System.Drawing.Size(575, 30);
+            this.passwordExpiresLabel.Size = new System.Drawing.Size(411, 29);
             this.passwordExpiresLabel.TabIndex = 2;
             this.passwordExpiresLabel.Text = "Password Expires";
-            this.passwordExpiresLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.passwordExpiresLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PasswordExpiresValueLabel
             // 
             this.PasswordExpiresValueLabel.BackColor = System.Drawing.Color.Transparent;
-            this.PasswordExpiresValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PasswordExpiresValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.PasswordExpiresValueLabel.ForeColor = System.Drawing.Color.Snow;
-            this.PasswordExpiresValueLabel.Location = new System.Drawing.Point(10, 40);
+            this.PasswordExpiresValueLabel.Location = new System.Drawing.Point(10, 31);
+            this.PasswordExpiresValueLabel.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.PasswordExpiresValueLabel.Name = "PasswordExpiresValueLabel";
-            this.PasswordExpiresValueLabel.Size = new System.Drawing.Size(580, 60);
+            this.PasswordExpiresValueLabel.Size = new System.Drawing.Size(408, 38);
             this.PasswordExpiresValueLabel.TabIndex = 4;
             this.PasswordExpiresValueLabel.Text = "January 1, 1970";
             this.PasswordExpiresValueLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -125,11 +128,12 @@
             // alertPanel
             // 
             this.alertPanel.BackColor = System.Drawing.Color.Green;
-            this.alertPanel.Controls.Add(this.PasswordExpiresValueLabel);
             this.alertPanel.Controls.Add(this.passwordExpiresLabel);
-            this.alertPanel.Location = new System.Drawing.Point(2, 2);
+            this.alertPanel.Controls.Add(this.PasswordExpiresValueLabel);
+            this.alertPanel.Location = new System.Drawing.Point(0, 0);
+            this.alertPanel.Margin = new System.Windows.Forms.Padding(0);
             this.alertPanel.Name = "alertPanel";
-            this.alertPanel.Size = new System.Drawing.Size(600, 104);
+            this.alertPanel.Size = new System.Drawing.Size(428, 80);
             this.alertPanel.TabIndex = 9;
             // 
             // CheckExpirationTimer
@@ -138,9 +142,11 @@
             // 
             // ChangePasswordButton
             // 
-            this.ChangePasswordButton.Location = new System.Drawing.Point(22, 321);
+            this.ChangePasswordButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChangePasswordButton.Location = new System.Drawing.Point(10, 246);
+            this.ChangePasswordButton.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
             this.ChangePasswordButton.Name = "ChangePasswordButton";
-            this.ChangePasswordButton.Size = new System.Drawing.Size(549, 41);
+            this.ChangePasswordButton.Size = new System.Drawing.Size(408, 36);
             this.ChangePasswordButton.TabIndex = 11;
             this.ChangePasswordButton.Text = "Change Password";
             this.ChangePasswordButton.UseVisualStyleBackColor = true;
@@ -150,27 +156,28 @@
             // 
             this.messageWebBrowser.AllowWebBrowserDrop = false;
             this.messageWebBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.messageWebBrowser.Location = new System.Drawing.Point(5, 105);
-            this.messageWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.messageWebBrowser.Location = new System.Drawing.Point(1, 83);
+            this.messageWebBrowser.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+            this.messageWebBrowser.MinimumSize = new System.Drawing.Size(10, 10);
             this.messageWebBrowser.Name = "messageWebBrowser";
             this.messageWebBrowser.ScrollBarsEnabled = false;
-            this.messageWebBrowser.Size = new System.Drawing.Size(594, 201);
+            this.messageWebBrowser.Size = new System.Drawing.Size(427, 157);
             this.messageWebBrowser.TabIndex = 12;
             this.messageWebBrowser.WebBrowserShortcutsEnabled = false;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(608, 374);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(428, 294);
             this.Controls.Add(this.ChangePasswordButton);
             this.Controls.Add(this.alertPanel);
             this.Controls.Add(this.messageWebBrowser);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

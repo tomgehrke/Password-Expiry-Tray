@@ -23,6 +23,7 @@ namespace Pet
 
         // Current alert states
         private DateTime LastChecked;
+        private DateTime LastNotified;
         private Priority currentPriority = Priority.Unknown;
 
         // Alert priorities
@@ -105,15 +106,6 @@ namespace Pet
 
             // Update settings related components
             ChangePasswordButton.Visible = !String.IsNullOrEmpty(settings.Action);
-
-            if (ChangePasswordButton.Visible)
-            {
-                this.Height = 420;
-            }
-            else
-            {
-                this.Height = 360;
-            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
