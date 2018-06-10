@@ -93,19 +93,23 @@ namespace Pet
             {
                 case Priority.None:
                     alertPanel.BackColor = Color.Green;
-                    alertPanel.ForeColor = Color.White;
+                    passwordExpiresLabel.ForeColor = Color.LightGray;
+                    PasswordExpiresValueLabel.ForeColor = Color.White;
                     break;
                 case Priority.Warn:
                     alertPanel.BackColor = Color.Yellow;
-                    alertPanel.ForeColor = Color.Black;
+                    passwordExpiresLabel.ForeColor = Color.DimGray;
+                    PasswordExpiresValueLabel.ForeColor = Color.Black;
                     break;
                 case Priority.Alert:
                     alertPanel.BackColor = Color.Red;
-                    alertPanel.ForeColor = Color.LightYellow;
+                    passwordExpiresLabel.ForeColor = Color.LightGray;
+                    PasswordExpiresValueLabel.ForeColor = Color.LightYellow;
                     break;
                 default:
                     alertPanel.BackColor = Color.Gray;
-                    alertPanel.ForeColor = Color.White;
+                    passwordExpiresLabel.ForeColor = Color.LightGray;
+                    PasswordExpiresValueLabel.ForeColor = Color.White;
                     break;
             }
 
