@@ -2,7 +2,7 @@
 
 ## Project Goals
 
-1. To convert an old utility written in VB.NET to C# and reacquaint myself with changes in Visual Studio.
+1. To re-create an old utility originally written in VB.NET in C# and reacquaint myself with changes in Visual Studio.
 2. To provide this utility to the public to use or improve upon, either as a whole or by taking advantage of code snippets that could be incorporated into other project.
 
 ## Description
