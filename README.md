@@ -7,7 +7,7 @@
 
 ## Description
 
-Password Expiry Tray (PET) is a small-footprint utility that runs, out of the way, in your system tray. Periodically, it will check the currect status of your password and alert you when your password is about to expire in order to give the user an opportunity to plan the best time for them to do that.
+Password Expiry Tray (PET) is a small-footprint utility that runs, out of the way, in your system tray. Periodically, it will check the current status of your password and alert you when your password is about to expire in order to give the user an opportunity to plan the best time for them to do that.
 
 There are a number of configurable options:
 
