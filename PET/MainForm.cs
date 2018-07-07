@@ -65,10 +65,18 @@ namespace Pet
 
             if (currentActiveDirectoryUser.PasswordRequired)
             {
-                Priority originalPriority = CurrentPriority;
-                CurrentPriority = GetCurrentPriority(currentTime);
-                priorityChanged = !(originalPriority == CurrentPriority);
-                messageStringBuilder.AppendFormat("<p>Your password was last changed on {0:d} at {0:t}. You have <b>{1}</b> days until it will need to be changed.</p>", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - currentTime).Days);
+                if (currentActiveDirectoryUser.PasswordNeverExpires)
+                {
+                    CurrentPriority = Priority.None;
+                    messageStringBuilder.Append("<p>Your password never expires.</p>");
+                }
+                else
+                {
+                    Priority originalPriority = CurrentPriority;
+                    CurrentPriority = GetCurrentPriority(currentTime);
+                    priorityChanged = !(originalPriority == CurrentPriority);
+                    messageStringBuilder.AppendFormat("<p>Your password was last changed on {0:d} at {0:t}. You have <b>{1}</b> days until it will need to be changed.</p>", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - currentTime).Days);
+                }
             }
             else
             {
