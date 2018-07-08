@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.TimerIntervalLabel = new System.Windows.Forms.Label();
             this.TimerIntervalNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.TimerIntervalHoursLabel = new System.Windows.Forms.Label();
@@ -59,24 +60,22 @@
             // 
             this.TimerIntervalLabel.AutoSize = true;
             this.TimerIntervalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimerIntervalLabel.Location = new System.Drawing.Point(21, 45);
-            this.TimerIntervalLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.TimerIntervalLabel.Location = new System.Drawing.Point(12, 29);
             this.TimerIntervalLabel.Name = "TimerIntervalLabel";
-            this.TimerIntervalLabel.Size = new System.Drawing.Size(192, 31);
+            this.TimerIntervalLabel.Size = new System.Drawing.Size(116, 20);
             this.TimerIntervalLabel.TabIndex = 0;
             this.TimerIntervalLabel.Text = "Timer interval";
             // 
             // TimerIntervalNumericUpDown
             // 
-            this.TimerIntervalNumericUpDown.Location = new System.Drawing.Point(27, 81);
-            this.TimerIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
+            this.TimerIntervalNumericUpDown.Location = new System.Drawing.Point(15, 52);
             this.TimerIntervalNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.TimerIntervalNumericUpDown.Name = "TimerIntervalNumericUpDown";
-            this.TimerIntervalNumericUpDown.Size = new System.Drawing.Size(160, 38);
+            this.TimerIntervalNumericUpDown.Size = new System.Drawing.Size(90, 26);
             this.TimerIntervalNumericUpDown.TabIndex = 1;
             this.TimerIntervalNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -87,34 +86,31 @@
             // TimerIntervalHoursLabel
             // 
             this.TimerIntervalHoursLabel.AutoSize = true;
-            this.TimerIntervalHoursLabel.Location = new System.Drawing.Point(197, 83);
-            this.TimerIntervalHoursLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.TimerIntervalHoursLabel.Location = new System.Drawing.Point(111, 54);
             this.TimerIntervalHoursLabel.Name = "TimerIntervalHoursLabel";
-            this.TimerIntervalHoursLabel.Size = new System.Drawing.Size(86, 32);
+            this.TimerIntervalHoursLabel.Size = new System.Drawing.Size(49, 20);
             this.TimerIntervalHoursLabel.TabIndex = 2;
             this.TimerIntervalHoursLabel.Text = "hours";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(197, 220);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(111, 142);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 32);
+            this.label1.Size = new System.Drawing.Size(49, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "hours";
             // 
             // WarnIntervalNumericUpDown
             // 
-            this.WarnIntervalNumericUpDown.Location = new System.Drawing.Point(27, 218);
-            this.WarnIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
+            this.WarnIntervalNumericUpDown.Location = new System.Drawing.Point(15, 141);
             this.WarnIntervalNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.WarnIntervalNumericUpDown.Name = "WarnIntervalNumericUpDown";
-            this.WarnIntervalNumericUpDown.Size = new System.Drawing.Size(160, 38);
+            this.WarnIntervalNumericUpDown.Size = new System.Drawing.Size(90, 26);
             this.WarnIntervalNumericUpDown.TabIndex = 4;
             this.WarnIntervalNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -126,34 +122,31 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 181);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Location = new System.Drawing.Point(12, 117);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(225, 31);
+            this.label2.Size = new System.Drawing.Size(138, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Warning interval";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(524, 221);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Location = new System.Drawing.Point(295, 143);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 32);
+            this.label3.Size = new System.Drawing.Size(42, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "days";
             // 
             // WarnThresholdNumericUpDown
             // 
-            this.WarnThresholdNumericUpDown.Location = new System.Drawing.Point(363, 218);
-            this.WarnThresholdNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
+            this.WarnThresholdNumericUpDown.Location = new System.Drawing.Point(204, 141);
             this.WarnThresholdNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.WarnThresholdNumericUpDown.Name = "WarnThresholdNumericUpDown";
-            this.WarnThresholdNumericUpDown.Size = new System.Drawing.Size(160, 38);
+            this.WarnThresholdNumericUpDown.Size = new System.Drawing.Size(90, 26);
             this.WarnThresholdNumericUpDown.TabIndex = 7;
             this.WarnThresholdNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -165,34 +158,31 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(357, 181);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Location = new System.Drawing.Point(201, 117);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(250, 31);
+            this.label4.Size = new System.Drawing.Size(155, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Warning threshold";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(524, 350);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label5.Location = new System.Drawing.Point(295, 226);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 32);
+            this.label5.Size = new System.Drawing.Size(42, 20);
             this.label5.TabIndex = 14;
             this.label5.Text = "days";
             // 
             // AlertThresholdNumericUpDown
             // 
-            this.AlertThresholdNumericUpDown.Location = new System.Drawing.Point(363, 347);
-            this.AlertThresholdNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
+            this.AlertThresholdNumericUpDown.Location = new System.Drawing.Point(204, 224);
             this.AlertThresholdNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.AlertThresholdNumericUpDown.Name = "AlertThresholdNumericUpDown";
-            this.AlertThresholdNumericUpDown.Size = new System.Drawing.Size(160, 38);
+            this.AlertThresholdNumericUpDown.Size = new System.Drawing.Size(90, 26);
             this.AlertThresholdNumericUpDown.TabIndex = 13;
             this.AlertThresholdNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -204,34 +194,31 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(357, 308);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Location = new System.Drawing.Point(201, 199);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(204, 31);
+            this.label6.Size = new System.Drawing.Size(127, 20);
             this.label6.TabIndex = 12;
             this.label6.Text = "Alert threshold";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(188, 347);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Location = new System.Drawing.Point(106, 224);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(86, 32);
+            this.label7.Size = new System.Drawing.Size(49, 20);
             this.label7.TabIndex = 11;
             this.label7.Text = "hours";
             // 
             // AlertIntervalNumericUpDown
             // 
-            this.AlertIntervalNumericUpDown.Location = new System.Drawing.Point(27, 344);
-            this.AlertIntervalNumericUpDown.Margin = new System.Windows.Forms.Padding(5);
+            this.AlertIntervalNumericUpDown.Location = new System.Drawing.Point(15, 222);
             this.AlertIntervalNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.AlertIntervalNumericUpDown.Name = "AlertIntervalNumericUpDown";
-            this.AlertIntervalNumericUpDown.Size = new System.Drawing.Size(160, 38);
+            this.AlertIntervalNumericUpDown.Size = new System.Drawing.Size(90, 26);
             this.AlertIntervalNumericUpDown.TabIndex = 10;
             this.AlertIntervalNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -243,35 +230,37 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(21, 308);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label8.Location = new System.Drawing.Point(12, 199);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(179, 31);
+            this.label8.Size = new System.Drawing.Size(110, 20);
             this.label8.TabIndex = 9;
             this.label8.Text = "Alert interval";
             // 
             // ActionTextBox
             // 
-            this.ActionTextBox.Location = new System.Drawing.Point(27, 453);
+            this.ActionTextBox.Location = new System.Drawing.Point(15, 292);
+            this.ActionTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ActionTextBox.Name = "ActionTextBox";
-            this.ActionTextBox.Size = new System.Drawing.Size(580, 38);
+            this.ActionTextBox.Size = new System.Drawing.Size(328, 26);
             this.ActionTextBox.TabIndex = 15;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(21, 418);
+            this.label9.Location = new System.Drawing.Point(12, 270);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(349, 32);
+            this.label9.Size = new System.Drawing.Size(215, 20);
             this.label9.TabIndex = 16;
             this.label9.Text = "Change password action";
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(418, 560);
+            this.SaveButton.Location = new System.Drawing.Point(235, 361);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(190, 50);
+            this.SaveButton.Size = new System.Drawing.Size(107, 32);
             this.SaveButton.TabIndex = 18;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -279,9 +268,10 @@
             // 
             // CloseButton
             // 
-            this.CloseButton.Location = new System.Drawing.Point(203, 560);
+            this.CloseButton.Location = new System.Drawing.Point(114, 361);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(190, 50);
+            this.CloseButton.Size = new System.Drawing.Size(107, 32);
             this.CloseButton.TabIndex = 19;
             this.CloseButton.Text = "Close";
             this.CloseButton.UseVisualStyleBackColor = true;
@@ -289,9 +279,10 @@
             // 
             // LoadDefaultsButton
             // 
-            this.LoadDefaultsButton.Location = new System.Drawing.Point(363, 65);
+            this.LoadDefaultsButton.Location = new System.Drawing.Point(204, 42);
+            this.LoadDefaultsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LoadDefaultsButton.Name = "LoadDefaultsButton";
-            this.LoadDefaultsButton.Size = new System.Drawing.Size(236, 50);
+            this.LoadDefaultsButton.Size = new System.Drawing.Size(133, 32);
             this.LoadDefaultsButton.TabIndex = 20;
             this.LoadDefaultsButton.Text = "Load Defaults";
             this.LoadDefaultsButton.UseVisualStyleBackColor = true;
@@ -299,9 +290,9 @@
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 665);
+            this.ClientSize = new System.Drawing.Size(361, 429);
             this.Controls.Add(this.LoadDefaultsButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.SaveButton);
@@ -322,7 +313,7 @@
             this.Controls.Add(this.TimerIntervalHoursLabel);
             this.Controls.Add(this.TimerIntervalNumericUpDown);
             this.Controls.Add(this.TimerIntervalLabel);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

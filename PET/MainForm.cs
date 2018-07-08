@@ -67,7 +67,7 @@ namespace Pet
             {
                 if (currentActiveDirectoryUser.PasswordNeverExpires)
                 {
-                    CurrentPriority = Priority.None;
+                    CurrentPriority = Priority.Unknown;
                     messageStringBuilder.Append("<p>Your password never expires.</p>");
                 }
                 else
@@ -80,7 +80,7 @@ namespace Pet
             }
             else
             {
-                CurrentPriority = Priority.None;
+                CurrentPriority = Priority.Unknown;
                 messageStringBuilder.Append("<p>You do not required a password.</p>");
             }
 
@@ -99,21 +99,25 @@ namespace Pet
                     alertPanel.BackColor = Color.Green;
                     passwordExpiresLabel.ForeColor = Color.LightGray;
                     PasswordExpiresValueLabel.ForeColor = Color.White;
+                    MainNotifyIcon.Icon = Properties.Resources.pWhite;
                     break;
                 case Priority.Warn:
                     alertPanel.BackColor = Color.Yellow;
                     passwordExpiresLabel.ForeColor = Color.DimGray;
                     PasswordExpiresValueLabel.ForeColor = Color.Black;
+                    MainNotifyIcon.Icon = Properties.Resources.pYellow;
                     break;
                 case Priority.Alert:
                     alertPanel.BackColor = Color.Red;
                     passwordExpiresLabel.ForeColor = Color.LightGray;
                     PasswordExpiresValueLabel.ForeColor = Color.LightYellow;
+                    MainNotifyIcon.Icon = Properties.Resources.pRed;
                     break;
                 default:
                     alertPanel.BackColor = Color.Gray;
                     passwordExpiresLabel.ForeColor = Color.LightGray;
                     PasswordExpiresValueLabel.ForeColor = Color.White;
+                    MainNotifyIcon.Icon = Properties.Resources.pBlack;
                     break;
             }
 
