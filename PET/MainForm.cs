@@ -60,6 +60,7 @@ namespace Pet
             PasswordExpiresValueLabel.Text = String.Format("{0:dddd, MMMM dd, yyyy}", currentActiveDirectoryUser.PasswordExpirationDate);
 
             StringBuilder messageStringBuilder = new StringBuilder("<html><head></head><body>");
+            StringBuilder tooltipStringBuilder = new StringBuilder();
 
             messageStringBuilder.AppendFormat("<p><b>{0}</b> ({1}), you are logged in with a <i>{2}</i> account.</p>", currentIdentity.Name, currentActiveDirectoryUser.FullName, currentActiveDirectoryUser.Context);
 
@@ -69,6 +70,7 @@ namespace Pet
                 {
                     CurrentPriority = Priority.Unknown;
                     messageStringBuilder.Append("<p>Your password never expires.</p>");
+                    tooltipStringBuilder.AppendFormat("Your {0} account password never expires", currentActiveDirectoryUser.Context);
                 }
                 else
                 {
@@ -76,12 +78,14 @@ namespace Pet
                     CurrentPriority = GetCurrentPriority(currentTime);
                     priorityChanged = !(originalPriority == CurrentPriority);
                     messageStringBuilder.AppendFormat("<p>Your password was last changed on {0:d} at {0:t}. You have <b>{1}</b> days until it will need to be changed.</p>", currentActiveDirectoryUser.PasswordLastChangedDate, (currentActiveDirectoryUser.PasswordExpirationDate - currentTime).Days);
+                    tooltipStringBuilder.AppendFormat("Your {0} account password will expire in {1} days on {2:d}", currentActiveDirectoryUser.Context, (currentActiveDirectoryUser.PasswordExpirationDate - currentTime).Days, currentActiveDirectoryUser.PasswordExpirationDate);
                 }
             }
             else
             {
                 CurrentPriority = Priority.Unknown;
                 messageStringBuilder.Append("<p>You do not required a password.</p>");
+                tooltipStringBuilder.Append("You do not required a password");
             }
 
             messageStringBuilder.AppendFormat("<p>Password last checked on {0:d} at {0:t}</p>", lastChecked);
@@ -120,6 +124,8 @@ namespace Pet
                     MainNotifyIcon.Icon = Properties.Resources.pBlack;
                     break;
             }
+
+            MainNotifyIcon.Text = tooltipStringBuilder.ToString();
 
             // Update settings related components
             ChangePasswordButton.Visible = !String.IsNullOrEmpty(settings.Action);
