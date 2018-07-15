@@ -1,5 +1,7 @@
 # Password-Expiry-Tray
 
+_NOTE: This project has been superceded by a Windows Presentation Foundation (WPF) version of the application that can be found [here](https://github.com/tomgehrke/PasswordExpiryTray_2)._
+
 ## Project Goals
 
 1. To re-create an old utility originally written in VB.NET in C# and reacquaint myself with changes in Visual Studio.
